@@ -26,7 +26,9 @@ function Users() {
 
       const response = await getUsers(token, search);
       if (response.status === 200) {
-        setUsers(response.data.users);
+        setUsers(
+          Array.isArray(response.data?.users) ? response.data.users : [],
+        );
       } else {
         setError("Failed to fetch users");
       }

@@ -37,7 +37,7 @@ function AdminManagement() {
     try {
       setLoading(true);
       const res = await getAllAdmins(token);
-      setAdmins(res.data.admins);
+      setAdmins(Array.isArray(res.data?.admins) ? res.data.admins : []);
     } catch (err) {
       toast.error("Failed to fetch admins");
     } finally {

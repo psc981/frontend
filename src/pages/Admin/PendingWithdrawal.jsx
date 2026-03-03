@@ -33,7 +33,11 @@ function PendingWithdrawal() {
     try {
       setLoading(true);
       const res = await getAllTransactions(token, "pending", "withdraw");
-      const txns = res.data?.transactions || res.transactions || [];
+      const txns = Array.isArray(res.data?.transactions)
+        ? res.data.transactions
+        : Array.isArray(res.transactions)
+          ? res.transactions
+          : [];
 
       setWithdrawals(txns);
     } catch (error) {

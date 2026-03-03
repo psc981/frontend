@@ -24,7 +24,7 @@ function AdminProducts() {
     try {
       setLoading(true);
       const response = await getProducts(search);
-      setProducts(response.data);
+      setProducts(Array.isArray(response.data) ? response.data : []);
       setLoading(false);
     } catch (err) {
       setError("Error fetching products");

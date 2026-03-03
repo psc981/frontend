@@ -63,7 +63,7 @@ function AdminChat() {
   const fetchUsers = async () => {
     try {
       const res = await getChatUsers(token);
-      setUsers(res.data.users);
+      setUsers(Array.isArray(res.data?.users) ? res.data.users : []);
     } catch (err) {
       console.error("Failed to fetch chat users", err);
     }
@@ -73,10 +73,10 @@ function AdminChat() {
     setSelectedUser(user);
     try {
       const res = await getAdminUserMessages(token, user._id);
-      setMessages(res.data.messages);
+      setMessages(Array.isArray(res.data?.messages) ? res.data.messages : []);
       // Immediately clear unread count for the selected user in local state
       setUsers((prevUsers) =>
-        prevUsers.map((u) =>
+        (Array.isArray(prevUsers) ? prevUsers : []).map((u) =>
           u._id === user._id ? { ...u, unreadCount: 0 } : u,
         ),
       );

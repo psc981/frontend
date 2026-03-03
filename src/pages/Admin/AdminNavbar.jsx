@@ -19,8 +19,10 @@ function AdminNavbar({ toggleSidebar }) {
         const { data } = await getNotifications(token);
 
         // ✅ fix: data.notifications might be undefined or array
-        const notis = data.notifications || [];
-        setNotifications(notis.filter((n) => !n.isRead));
+        const notis = Array.isArray(data?.notifications)
+          ? data.notifications
+          : [];
+        setNotifications(notis.filter((n) => n && !n.isRead));
       } catch (err) {
         console.error("Failed to load notifications", err);
       }

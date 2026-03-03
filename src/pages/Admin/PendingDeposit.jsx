@@ -30,7 +30,11 @@ function PendingDeposit() {
       setLoading(true);
       try {
         const res = await getPendingTransactions(token, "deposit");
-        const txns = res.data?.transactions || res.transactions || [];
+        const txns = Array.isArray(res.data?.transactions)
+          ? res.data.transactions
+          : Array.isArray(res.transactions)
+            ? res.transactions
+            : [];
         setPendingDeposits(txns);
       } catch (err) {
         toast.error("Failed to fetch pending deposits");
