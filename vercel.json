@@ -6,7 +6,7 @@
       "destination": "https://pec-app-backend.vercel.app/api/:path*"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ]
